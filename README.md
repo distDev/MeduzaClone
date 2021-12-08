@@ -1,5 +1,5 @@
 # MeduzaClone
-Клон Meduza.io
+Клон <a href='https://meduza.io/'>Meduza.io</a>
 
 Используемый стек:
 
