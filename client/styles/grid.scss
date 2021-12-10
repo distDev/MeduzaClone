@@ -89,3 +89,14 @@
     grid-column: span 3;
   }
 }
+.chronology-grid {
+  display: grid;
+  width: 825px;
+  margin: 0px auto;
+  margin-top: 15px;
+  grid-template-columns: 4fr;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  grid-auto-rows: minmax(200x, auto);
+  margin-bottom: 15px;
+}

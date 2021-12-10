@@ -1,0 +1,55 @@
+.profile-container {
+  width: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+      padding: 0px;
+      margin: 0px;
+      margin-bottom: 45px;
+  }
+
+  .profile-btns {
+    padding: 25px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 15px 0px;
+    border-radius: 10px;
+    background: rgb(255, 255, 255);
+
+    .profile-ext {
+      background: #e5e5e5;
+      color: black;
+    }
+    .profile-del {
+      background: #ff6262;
+      color: white;
+    }
+    .profile-bkm {
+        background: #B88B59;
+      color: white;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px 0px;
+      border-radius: 8px;
+      border: none;
+      font-weight: medium;
+      cursor: pointer;
+
+      &:hover {
+          opacity: 0.8;
+      }
+    }
+  }
+}
+
+.profile-wrap {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
