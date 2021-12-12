@@ -1,64 +1,40 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import PostsThree from '../../components/PostsThree';
 import PostsTwo from '../../components/PostsTwo';
-import { postsData } from '../../utils/data';
+import moment from 'moment';
+import 'moment/locale/ru'; 
+import MarkdownIt from 'markdown-it';
 
-const Post = ({ par }) => {
 
-const [posts, setPosts] = useState(postsData);
+const Post = ({ data, posts }) => {
+
+  const postRec = posts.filter((e) => e.id !== data.id)
+  
+  const md = new MarkdownIt();
+  const htmlContent = md.render(data.body);
+  console.log(data);
 
   return (
     <>
       <div className='container post-main'>
         <div className='post-content'>
           <div className='post-content-head'>
-            <span>Новости</span>
-            <h1>
-              Шутки кончились: мем из тиктока «Москва, метро „Люблино“.
-              Работаем!» добрался до Испании
-            </h1>
-            <p>12 ноября</p>
+            <span>{data.categories[0].ruName}</span>
+            <h1>{data.title}</h1>
+            <p>{moment(data.published_at).startOf('hour').fromNow()}</p>
           </div>
-          <div className='post-content-body'>
-            <p>
-              «Москва, метро „Люблино“. Работаем!» — кажется, от этих четырех
-              слов в последние пару недель в тиктоке было никуда не деться. Но,
-              как говорится, пранк явно вышел из-под контроля: 28 ноября в
-              официальном аккаунте Ла Лиги (чемпионата Испании по футболу)
-              появился ролик с тренировкой мадридского «Реала». С той самой
-              подписью на русском языке и ремиксом трека «In Da Club» рэпера 50
-              Cent. Но что вообще происходит и с чего все началось? Сейчас
-              объясним!
-            </p>
-            <p>
-              «Москва, метро „Люблино“. Работаем!» — кажется, от этих четырех
-              слов в последние пару недель в тиктоке было никуда не деться. Но,
-              как говорится, пранк явно вышел из-под контроля: 28 ноября в
-              официальном аккаунте Ла Лиги (чемпионата Испании по футболу)
-              появился ролик с тренировкой мадридского «Реала». С той самой
-              подписью на русском языке и ремиксом трека «In Da Club» рэпера 50
-              Cent. Но что вообще происходит и с чего все началось? Сейчас
-              объясним!
-            </p>
-            <p>
-              «Москва, метро „Люблино“. Работаем!» — кажется, от этих четырех
-              слов в последние пару недель в тиктоке было никуда не деться. Но,
-              как говорится, пранк явно вышел из-под контроля: 28 ноября в
-              официальном аккаунте Ла Лиги (чемпионата Испании по футболу)
-              появился ролик с тренировкой мадридского «Реала». С той самой
-              подписью на русском языке и ремиксом трека «In Da Club» рэпера 50
-              Cent. Но что вообще происходит и с чего все началось? Сейчас
-              объясним!
-            </p>
-          </div>
+          <div
+            className='post-content-body'
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+          ></div>
         </div>
       </div>
       <div className='container second-grid main'>
-        <PostsThree posts={posts} start={2} end={5} />
-        <PostsTwo posts={posts} start={0} end={2} />
-        <PostsThree posts={posts} start={2} end={5} />
-        <PostsTwo posts={posts} start={0} end={2} />
-       
+        <PostsThree posts={postRec} start={2} end={5} />
+        <PostsTwo posts={postRec} start={0} end={2} />
+        <PostsThree posts={postRec} start={2} end={5} />
+        <PostsTwo posts={postRec} start={0} end={2} />
       </div>
     </>
   );
@@ -67,10 +43,15 @@ const [posts, setPosts] = useState(postsData);
 export default Post;
 
 export async function getServerSideProps({ params }) {
-  const par = params.id;
+ 
+   const res = await axios.get(`http://localhost:1337/posts/${params.id}`);
+    const resSecond = await axios.get('http://localhost:1337/posts');
+   const data = res.data;
+   const posts = resSecond.data
   return {
     props: {
-      par,
+      data,
+      posts,
     }, // will be passed to the page component as props
   };
 }

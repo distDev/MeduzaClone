@@ -1,15 +1,14 @@
 import axios from 'axios';
 import Head from 'next/head';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ChronologyPost from '../components/ChronologyPost';
-
 import PostsThree from '../components/PostsThree';
 import PostsTwo from '../components/PostsTwo';
-import { postsData } from '../utils/data';
+
 
 const shapito = ({ data }) => {
-   const posts = data
+  
+  const posts = data
      .map((i) => [Math.random(), i])
      .sort()
      .map((i) => i[1]);

@@ -1,12 +1,11 @@
 import Head from 'next/head';
-import { useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import ChronologyPost from '../components/ChronologyPost';
 import PostsFive from '../components/PostsFive';
 import PostsThree from '../components/PostsThree';
 import PostsTwo from '../components/PostsTwo';
-import { postsData } from '../utils/data';
+
 
 export default function Home({data}) {
   const switchStatus = useSelector((state) => state.switch.status);

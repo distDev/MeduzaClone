@@ -6,20 +6,14 @@ import { headerPaths } from '../utils/headerPath';
 import { useRouter } from 'next/router';
 
 const Header = () => {
-  
-
   const router = useRouter();
 
- 
-  
   const handleRouteProfile = () => {
     router.push('/profile');
   };
-   const handleRouteMain = () => {
-     router.push('/');
-   };
-
-
+  const handleRouteMain = () => {
+    router.push('/');
+  };
 
   return (
     <header className='header'>

@@ -1,4 +1,6 @@
-import React from 'react';
+import moment from 'moment';
+import 'moment/locale/ru';
+import Link from 'next/link';
 
 const ChronologyPost = ({ posts, end, start }) => {
   return (
@@ -13,8 +15,11 @@ const ChronologyPost = ({ posts, end, start }) => {
               <span>{e.categories[0].ruName}</span>
               <h3>{e.title}</h3>
             </div>
-            <p>{e.date}</p>
+            <p>{moment(e.published_at).startOf('hour').fromNow()}</p>
           </div>
+          <Link href={`/posts/${e.id}`}>
+            <a className='post-link'></a>
+          </Link>
         </div>
       ))}
     </>

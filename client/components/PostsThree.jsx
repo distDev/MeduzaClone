@@ -1,4 +1,8 @@
 import React from 'react';
+import moment from 'moment';
+import 'moment/locale/ru'; 
+import Link from 'next/link';
+
 
 const PostsThree = ({ posts, end, start, four }) => {
   return (
@@ -20,9 +24,12 @@ const PostsThree = ({ posts, end, start, four }) => {
               <h4>{e.title.slice(0, 80) + '...'}</h4>
             </div>
             <div className='post-medium-content-date'>
-              <p>{e.date}</p>
+              <p>{moment(e.published_at).startOf('hour').fromNow()}</p>
             </div>
           </div>
+          <Link href={`/posts/${e.id}`}>
+            <a className='post-link'></a>
+          </Link>
         </div>
       ))}
     </>
