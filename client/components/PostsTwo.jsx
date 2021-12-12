@@ -4,11 +4,11 @@ const PostsTwo = ({ posts, end, start }) => {
       {posts.slice(start, end).map((e, index) => (
         <div className='post_large' key={index + e.category}>
           <div className='post_large-content'>
-            <span>{e.category}</span>
-            <h3>{e.title}</h3>
-            <p>{e.date}</p>
+            <span>{e.categories[0].ruName}</span>
+            <h3>{e.title.slice(0, 82) + '...'}</h3>
+            <p>{e.published_at}</p>
           </div>
-          <img src={e.img} alt='' />
+          <img src={'http://localhost:1337' + e.previev[0].url} alt='' />
         </div>
       ))}
     </>

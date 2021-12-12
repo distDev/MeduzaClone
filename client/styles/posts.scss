@@ -1,17 +1,19 @@
 .post_large {
-  position: relative;
   box-sizing: border-box;
   overflow: hidden;
   border-radius: 10px;
   display: flex;
   align-items: flex-end;
   box-sizing: border-box;
-
+  background-size: contain;
+  position: relative;
+  
   img {
     width: 100%;
     height: 100%;
     z-index: 1;
     filter: brightness(50%);
+    object-fit: cover;
   }
 
   .post_large-content {
@@ -84,15 +86,28 @@
       font-size: 12px;
     }
   }
-  .post-medium-image-container {
-    max-height: 270px;
+  .post-medium-image-container-second {
+    height: 200px;
     width: 100%;
     overflow: hidden;
-
+    background-size: contain;
+    position: relative;
     img {
       width: 100%;
-      height: auto;
-      background-size: contain;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .post-medium-image-container {
+    height: 270px;
+    width: 100%;
+    overflow: hidden;
+    background-size: contain;
+    position: relative;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 }

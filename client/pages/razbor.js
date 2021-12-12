@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Head from 'next/head';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -7,9 +8,19 @@ import PostsThree from '../components/PostsThree';
 import PostsTwo from '../components/PostsTwo';
 import { postsData } from '../utils/data';
 
-const razbor = () => {
-  const [posts, setPosts] = useState(postsData);
+const razbor = ({ data }) => {
+  const posts = data
+    .map((i) => [Math.random(), i])
+    .sort()
+    .map((i) => i[1]);
+    
   const switchStatus = useSelector((state) => state.switch.status);
+  console.log(posts);
+
+
+  function makeRandomArr(a, b) {
+    return Math.random() - 0.5;
+  }
 
   return (
     <div className='container'>
@@ -32,10 +43,10 @@ const razbor = () => {
           </div>
           <div className='razbor-second-grid'>
             <PostsThree posts={posts} start={2} end={5} />
-            <PostsThree posts={posts} start={2} end={6} />
-            <PostsThree posts={posts} start={2} end={5} />
-            <PostsThree posts={posts} start={2} end={6} />
-            <PostsThree posts={posts} start={2} end={5} />
+            <PostsThree posts={posts} start={2} end={6} four={true} />
+            <PostsThree posts={posts} start={6} end={9} />
+            <PostsThree posts={posts} start={9} end={13} four={true} />
+            <PostsThree posts={posts} start={13} end={16} />
           </div>
         </main>
       )}
@@ -44,3 +55,16 @@ const razbor = () => {
 };
 
 export default razbor;
+
+export async function getServerSideProps({ params }) {
+  const res = await axios.get(
+    'http://localhost:1337/posts?categories.name=razbor'
+  );
+  const data = res.data;
+
+  return {
+    props: {
+      data,
+    }, // will be passed to the page component as props
+  };
+}

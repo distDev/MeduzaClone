@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Head from 'next/head';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -7,8 +8,8 @@ import PostsThree from '../components/PostsThree';
 import PostsTwo from '../components/PostsTwo';
 import { postsData } from '../utils/data';
 
-const articles = () => {
-  const [posts, setPosts] = useState(postsData);
+const articles = ({ data }) => {
+  const [posts, setPosts] = useState(data);
   const switchStatus = useSelector((state) => state.switch.status);
 
   return (
@@ -39,3 +40,16 @@ const articles = () => {
 };
 
 export default articles;
+
+export async function getServerSideProps({ params }) {
+  const res = await axios.get(
+    'http://localhost:1337/posts?categories.name=articles'
+  );
+  const data = res.data;
+
+  return {
+    props: {
+      data,
+    }, // will be passed to the page component as props
+  };
+}
