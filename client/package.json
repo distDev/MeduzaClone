@@ -8,8 +8,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.2.3",
     "@reduxjs/toolkit": "^1.6.2",
     "axios": "^0.24.0",
+    "magic-sdk": "^7.0.0",
     "markdown-it": "^12.3.0",
     "moment": "^2.29.1",
     "next": "12.0.7",

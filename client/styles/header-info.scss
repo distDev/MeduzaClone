@@ -9,6 +9,7 @@
   padding: 0px 25px;
   
   
+  
   input[type='checkbox'] {
     height: 0;
     width: 0;
@@ -39,7 +40,7 @@
   }
 
   input:checked + label {
-    background: #bada55;
+    background: #B88B59;
   }
 
   input:checked + label:after {

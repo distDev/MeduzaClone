@@ -1,6 +1,6 @@
 export const headerPaths = [
   {
-    name: 'ГЛАВНАЯ',
+    name: 'НОВОСТИ',
     path: '/',
   },
   {
