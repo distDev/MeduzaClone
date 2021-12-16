@@ -4,12 +4,10 @@ import { loginUser, logoutUser } from '../store/slices/authSlice';
 import { Magic } from 'magic-sdk';
 import { useEffect } from 'react';
 
-const ModalContent = ({ setSuccess, email, setEmail, mag }) => {
- 
+const ModalContent = ({ setSuccess, mag }) => {
+  const [email, setEmail] = useState('');
 
- 
   const dispatch = useDispatch();
-
 
   const handleSubmit = async () => {
     try {
@@ -21,7 +19,6 @@ const ModalContent = ({ setSuccess, email, setEmail, mag }) => {
       dispatch(logoutUser());
     }
   };
-
 
   return (
     <div className='modal-login'>

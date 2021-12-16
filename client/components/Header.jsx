@@ -11,7 +11,6 @@ import { loginUser, logoutUser } from '../store/slices/authSlice';
 
 const Header = () => {
   const [mag, setMag] = useState(null);
-  const [email, setEmail] = useState('');
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -49,7 +48,6 @@ const Header = () => {
         if (isLoggedIn) {
           const { email } = await magic.user.getMetadata();
           dispatch(loginUser({ email }));
-          //Add this just for test
           const token = await getToken();
           console.log('checkUserLoggedIn token', token);
         }
@@ -102,8 +100,7 @@ const Header = () => {
         <ModalLogin
           open={open}
           setOpen={setOpen}
-          setEmail={setEmail}
-          email={email}
+          
           mag={mag}
           handleClose={handleClose}
         />

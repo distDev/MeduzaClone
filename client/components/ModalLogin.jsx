@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import ModalContent from './ModalContent';
 import ModalSuccess from './ModalSuccess';
 
-const ModalLogin = ({ open, handleClose, setOpen, email, setEmail, mag }) => {
+const ModalLogin = ({ open, handleClose, setOpen, mag }) => {
   const [success, setSuccess] = useState(false);
  
   return (
@@ -23,8 +23,7 @@ const ModalLogin = ({ open, handleClose, setOpen, email, setEmail, mag }) => {
         ) : (
           <ModalContent
             setSuccess={setSuccess}
-            setEmail={setEmail}
-            email={email}
+           
             mag={mag}
           />
         )}

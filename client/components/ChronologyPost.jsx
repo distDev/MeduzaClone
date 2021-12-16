@@ -5,7 +5,7 @@ import Link from 'next/link';
 const ChronologyPost = ({ posts, end, start }) => {
   return (
     <>
-      {posts.slice(start, end).map((e) => (
+      {posts.slice(start, end).map((e, index) => (
         <div className='chronology-post' key={index + e.name}>
           <div className='chronology-post-img'>
             <img src={'http://localhost:1337' + e.previev[0].url} alt='' />
