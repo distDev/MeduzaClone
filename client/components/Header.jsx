@@ -3,24 +3,69 @@ import logo from '../public/logo.png';
 import Image from 'next/image';
 import { headerPaths } from '../utils/headerPath';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ModalLogin from './ModalLogin';
+import { Magic } from 'magic-sdk';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../store/slices/authSlice';
+import { loginUser, logoutUser } from '../store/slices/authSlice';
 
 const Header = () => {
+  const [mag, setMag] = useState(null);
+  const [email, setEmail] = useState('');
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.login.authStatus);
-  const [open, setOpen] = useState(false);
+
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => setOpen(false);
-  const halndleQuit = () => {
+
+  const halndleQuit = async () => {
     dispatch(logoutUser());
+    await mag.user.logout();
   };
+
   const handleRouteMain = () => {
     router.push('/');
   };
+
+  useEffect(() => {
+    const magic = new Magic('pk_live_80C88C06AA220751', { locale: 'ru' });
+
+    const getToken = async () => {
+      try {
+        const token = await magic.user.getIdToken();
+        return token;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const checkUserLoggedIn = async () => {
+      try {
+        const isLoggedIn = await magic.user.isLoggedIn();
+
+        if (isLoggedIn) {
+          const { email } = await magic.user.getMetadata();
+          dispatch(loginUser({ email }));
+          //Add this just for test
+          const token = await getToken();
+          console.log('checkUserLoggedIn token', token);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    checkUserLoggedIn();
+  }, []);
+
+  useEffect(() => {
+    const magic = new Magic('pk_live_80C88C06AA220751', { locale: 'ru' });
+
+    setMag(magic);
+  }, []);
 
   return (
     <>
@@ -54,7 +99,14 @@ const Header = () => {
         )}
       </header>
       <div>
-        <ModalLogin open={open} setOpen={setOpen} handleClose={handleClose} />
+        <ModalLogin
+          open={open}
+          setOpen={setOpen}
+          setEmail={setEmail}
+          email={email}
+          mag={mag}
+          handleClose={handleClose}
+        />
       </div>
     </>
   );

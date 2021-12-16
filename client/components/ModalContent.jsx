@@ -4,29 +4,16 @@ import { loginUser, logoutUser } from '../store/slices/authSlice';
 import { Magic } from 'magic-sdk';
 import { useEffect } from 'react';
 
-const ModalContent = ({ setSuccess }) => {
-  const [email, setEmail] = useState('');
-  const magic = new Magic('pk_live_80C88C06AA220751', { locale: 'ru' });
+const ModalContent = ({ setSuccess, email, setEmail, mag }) => {
+ 
+
+ 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const checkUserLog = async () => {
-      try {
-        const isLoggedIn = await magic.user.isLoggedIn();
-        if (isLoggedIn) {
-          const { email } = await magic.user.getMetadata();
-          dispatch(loginUser({ email }));
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    checkUserLog();
-  }, []);
 
   const handleSubmit = async () => {
     try {
-      await magic.auth.loginWithMagicLink({ email });
+      await mag.auth.loginWithMagicLink({ email });
       dispatch(loginUser({ email }));
       setSuccess(true);
     } catch (error) {
@@ -34,6 +21,7 @@ const ModalContent = ({ setSuccess }) => {
       dispatch(logoutUser());
     }
   };
+
 
   return (
     <div className='modal-login'>

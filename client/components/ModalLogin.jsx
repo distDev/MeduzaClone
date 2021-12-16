@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import ModalContent from './ModalContent';
 import ModalSuccess from './ModalSuccess';
 
-const ModalLogin = ({ open, handleClose, setOpen }) => {
+const ModalLogin = ({ open, handleClose, setOpen, email, setEmail, mag }) => {
   const [success, setSuccess] = useState(false);
  
   return (
@@ -21,7 +21,12 @@ const ModalLogin = ({ open, handleClose, setOpen }) => {
         {success ? (
           <ModalSuccess setOpen={setOpen} setSuccess={setSuccess} />
         ) : (
-          <ModalContent setSuccess={setSuccess} />
+          <ModalContent
+            setSuccess={setSuccess}
+            setEmail={setEmail}
+            email={email}
+            mag={mag}
+          />
         )}
       </Modal>
     </div>

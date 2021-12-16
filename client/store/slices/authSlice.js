@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Magic } from 'magic-sdk';
+
+
+
 const initialState = {
   user: [],
   authStatus: false,
+  
 };
 
 export const authSlice = createSlice({

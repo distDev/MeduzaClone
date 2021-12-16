@@ -6,7 +6,7 @@ const ChronologyPost = ({ posts, end, start }) => {
   return (
     <>
       {posts.slice(start, end).map((e) => (
-        <div className='chronology-post'>
+        <div className='chronology-post' key={index + e.name}>
           <div className='chronology-post-img'>
             <img src={'http://localhost:1337' + e.previev[0].url} alt='' />
           </div>
