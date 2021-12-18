@@ -2,6 +2,7 @@ import axios from 'axios';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import ChronologyPost from '../components/ChronologyPost';
+import Posts from '../components/Posts';
 import PostsThree from '../components/PostsThree';
 import PostsTwo from '../components/PostsTwo';
 
@@ -30,15 +31,15 @@ const shapito = ({ data }) => {
       ) : (
         <main className='container main'>
           <div className='shapito-grid'>
-            <PostsThree posts={posts} start={2} end={5} />
-            <PostsTwo posts={posts} start={0} end={2} />
-            <PostsThree posts={posts} start={2} end={6} />
+            <Posts variantPost={3} posts={posts} start={2} end={5} />
+            <Posts variantPost={2} posts={posts} start={0} end={2} />
+            <Posts variantPost={3} posts={posts} start={2} end={6} />
           </div>
           <div className='second-grid'>
-            <PostsThree posts={posts} start={2} end={5} />
-            <PostsTwo posts={posts} start={0} end={2} />
-            <PostsThree posts={posts} start={2} end={5} />
-            <PostsTwo posts={posts} start={0} end={2} />
+            <Posts variantPost={3} posts={posts} start={2} end={5} />
+            <Posts variantPost={2} posts={posts} start={0} end={2} />
+            <Posts variantPost={3} posts={posts} start={5} end={8} />
+            <Posts variantPost={2} posts={posts} start={9} end={11} />
           </div>
         </main>
       )}

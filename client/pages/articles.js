@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ChronologyPost from '../components/ChronologyPost';
+import Posts from '../components/Posts';
 import PostsFive from '../components/PostsFive';
 import PostsThree from '../components/PostsThree';
 import PostsTwo from '../components/PostsTwo';
@@ -10,6 +11,7 @@ import { postsData } from '../utils/data';
 
 const articles = ({ data }) => {
   const [posts, setPosts] = useState(data);
+  console.log(posts);
   const switchStatus = useSelector((state) => state.switch.status);
 
   return (
@@ -27,12 +29,12 @@ const articles = ({ data }) => {
         </main>
       ) : (
         <main className='main second-grid '>
-          <PostsThree posts={posts} start={2} end={5} />
-          <PostsTwo posts={posts} start={0} end={2} />
-          <PostsThree posts={posts} start={2} end={5} />
-          <PostsTwo posts={posts} start={0} end={2} />
-          <PostsThree posts={posts} start={2} end={5} />
-          <PostsTwo posts={posts} start={0} end={2} />
+          <Posts variantPost={3} posts={posts} start={5} end={8} />
+          <Posts variantPost={2} posts={posts} start={3} end={5} />
+          <Posts variantPost={3} posts={posts} start={7} end={10} />
+          <Posts variantPost={2} posts={posts} start={0} end={2} />
+          <Posts variantPost={3} posts={posts} start={11} end={14} />
+          <Posts variantPost={2} posts={posts} start={6} end={8} />
         </main>
       )}
     </div>

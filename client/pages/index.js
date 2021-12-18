@@ -5,6 +5,7 @@ import ChronologyPost from '../components/ChronologyPost';
 import PostsFive from '../components/PostsFive';
 import PostsThree from '../components/PostsThree';
 import PostsTwo from '../components/PostsTwo';
+import Posts from '../components/Posts';
 
 
 export default function Home({data}) {
@@ -31,12 +32,12 @@ export default function Home({data}) {
         </main>
       ) : (
         <main className='container main home-grid '>
-          <PostsTwo posts={posts} start={0} end={2} />
-          <PostsFive />
-          <PostsThree posts={posts} start={2} end={5} />
-          <PostsTwo posts={posts} start={0} end={2} />
-          <PostsFive />
-          <PostsThree posts={posts} start={2} end={5} />
+          <Posts variantPost={2} posts={posts} start={0} end={2} />
+          <Posts variantPost={5} />
+          <Posts variantPost={3} posts={posts} start={2} end={5} />
+          <Posts variantPost={2} posts={posts} start={5} end={7} />
+          <Posts variantPost={5} />
+          <Posts variantPost={3} posts={posts} start={7} end={10} />
         </main>
       )}
     </div>

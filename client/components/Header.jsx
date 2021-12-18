@@ -7,31 +7,34 @@ import { useEffect, useState } from 'react';
 import ModalLogin from './ModalLogin';
 import { Magic } from 'magic-sdk';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, logoutUser } from '../store/slices/authSlice';
+import { getMagic, loginUser, logoutUser } from '../store/slices/authSlice';
+import ProfileMenu from './ProfileMenu';
 
 const Header = () => {
-  const [mag, setMag] = useState(null);
+  // const [mag, setMag] = useState(null);
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.login.authStatus);
+  const mag = useSelector((state) => state.login.magic);
 
   const handleOpen = () => setOpen(true);
-
   const handleClose = () => setOpen(false);
-
-  const halndleQuit = async () => {
-    dispatch(logoutUser());
-    await mag.user.logout();
-  };
-
   const handleRouteMain = () => {
     router.push('/');
   };
 
+  // выход из аккаунта
+  const halndleQuit = async () => {
+    dispatch(logoutUser());
+    // await mag.user.logout();
+  };
+
+  // получение токена и проверка на авторизацию
   useEffect(() => {
     const magic = new Magic('pk_live_80C88C06AA220751', { locale: 'ru' });
 
+    // получение токена
     const getToken = async () => {
       try {
         const token = await magic.user.getIdToken();
@@ -41,6 +44,7 @@ const Header = () => {
       }
     };
 
+    // проверка на авторизацию в magic
     const checkUserLoggedIn = async () => {
       try {
         const isLoggedIn = await magic.user.isLoggedIn();
@@ -59,10 +63,11 @@ const Header = () => {
     checkUserLoggedIn();
   }, []);
 
+  // вызов magic конструктора для передачи в окно регистрации
   useEffect(() => {
     const magic = new Magic('pk_live_80C88C06AA220751', { locale: 'ru' });
 
-    setMag(magic);
+    dispatch(getMagic(magic));
   }, []);
 
   return (
@@ -87,8 +92,8 @@ const Header = () => {
           ))}
         </ul>
         {userData ? (
-          <div className='header__log' onClick={halndleQuit}>
-            <p>ВЫЙТИ</p>
+          <div className='header__log'>
+            <ProfileMenu halndleQuit={halndleQuit} />
           </div>
         ) : (
           <div className='header__log' onClick={handleOpen}>
@@ -100,7 +105,6 @@ const Header = () => {
         <ModalLogin
           open={open}
           setOpen={setOpen}
-          
           mag={mag}
           handleClose={handleClose}
         />

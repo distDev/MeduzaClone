@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ChronologyPost from '../components/ChronologyPost';
+import Posts from '../components/Posts';
 import PostsFive from '../components/PostsFive';
 import PostsThree from '../components/PostsThree';
 import PostsTwo from '../components/PostsTwo';
@@ -38,15 +39,15 @@ const razbor = ({ data }) => {
       ) : (
         <main className='main'>
           <div className='razbor-grid'>
-            <PostsTwo posts={posts} start={0} end={2} />
-            <PostsTwo posts={posts} start={0} end={2} />
+            <Posts variantPost={2} posts={posts} start={3} end={5} />
+            <Posts variantPost={2} posts={posts} start={5} end={7} />
           </div>
           <div className='razbor-second-grid'>
-            <PostsThree posts={posts} start={2} end={5} />
-            <PostsThree posts={posts} start={2} end={6} four={true} />
-            <PostsThree posts={posts} start={6} end={9} />
-            <PostsThree posts={posts} start={9} end={13} four={true} />
-            <PostsThree posts={posts} start={13} end={16} />
+            <Posts variantPost={3} posts={posts} start={2} end={5} />
+            <Posts variantPost={4} posts={posts} start={3} end={7} />
+            <Posts variantPost={3} posts={posts} start={6} end={9} />
+            <Posts variantPost={4} posts={posts} start={8} end={11} />
+            <Posts variantPost={3} posts={posts} start={12} end={16} />
           </div>
         </main>
       )}
