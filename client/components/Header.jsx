@@ -9,14 +9,16 @@ import { Magic } from 'magic-sdk';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMagic, loginUser, logoutUser } from '../store/slices/authSlice';
 import ProfileMenu from './ProfileMenu';
+import { removeAllBookmarks, saveBookmarks } from '../store/slices/bookmarkSlice';
+import axios from 'axios';
 
 const Header = () => {
-  // const [mag, setMag] = useState(null);
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.login.authStatus);
   const mag = useSelector((state) => state.login.magic);
+  const user = useSelector((state) => state.login.user);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -27,7 +29,7 @@ const Header = () => {
   // выход из аккаунта
   const halndleQuit = async () => {
     dispatch(logoutUser());
-    // await mag.user.logout();
+    dispatch(removeAllBookmarks());
   };
 
   // получение токена и проверка на авторизацию
@@ -51,9 +53,13 @@ const Header = () => {
 
         if (isLoggedIn) {
           const { email } = await magic.user.getMetadata();
-          dispatch(loginUser({ email }));
+          const res = await axios.get(
+            `http://localhost:1337/users?username=${email}`
+          );
+          const data = res.data;
+          dispatch(loginUser(data));
           const token = await getToken();
-          console.log('checkUserLoggedIn token', token);
+          console.log(token)
         }
       } catch (err) {
         console.log(err);
@@ -69,6 +75,19 @@ const Header = () => {
 
     dispatch(getMagic(magic));
   }, []);
+
+  // Получение всех закладок, если пользовать авторизован
+  useEffect(() => {
+    try {
+      if (user) {
+        const fetchData = () => {
+          const bookmarkData = user.map((e) => e.bookmarks);
+          dispatch(saveBookmarks(...bookmarkData));
+        };
+        fetchData();
+      }
+    } catch (error) {}
+  }, [saveBookmarks, dispatch, user]);
 
   return (
     <>

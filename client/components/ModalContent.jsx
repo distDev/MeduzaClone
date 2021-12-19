@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, logoutUser } from '../store/slices/authSlice';
 import { Magic } from 'magic-sdk';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 const ModalContent = ({ setSuccess, mag }) => {
   const [email, setEmail] = useState('');
@@ -12,7 +13,12 @@ const ModalContent = ({ setSuccess, mag }) => {
   const handleSubmit = async () => {
     try {
       await mag.auth.loginWithMagicLink({ email });
-      dispatch(loginUser({ email }));
+       const res = await axios.get(
+         `http://localhost:1337/users?username=${email}`
+       );
+       const data = res.data;
+       dispatch(loginUser(data));
+       
       setSuccess(true);
     } catch (error) {
       console.log('ошибка авторизации: ' + error);

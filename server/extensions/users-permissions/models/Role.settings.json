@@ -41,9 +41,6 @@
       "via": "role",
       "configurable": false,
       "plugin": "users-permissions"
-    },
-    "bookmarks": {
-      "collection": "post"
     }
   }
 }

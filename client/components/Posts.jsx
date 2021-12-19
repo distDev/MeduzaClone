@@ -1,23 +1,57 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PostsFive from './PostsFive';
 import PostsThree from './PostsThree';
 import PostsTwo from './PostsTwo';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBookmarks } from '../store/slices/bookmarkSlice';
 
 const Posts = ({ variantPost, start, end, posts, four }) => {
+  const dispatch = useDispatch();
+  const bookmarksData = useSelector((state) => state.bookmark.bookmarksData);
+  const user = useSelector((state) => state.login.user);
+
+  // сохранение поста в стор и добавление его в api юзера
+  const savedBokmark = async ({ id }) => {
+    dispatch(addBookmarks({ id }));
+    const idS = user.map((e) => e.id)[0]
+    await axios.put(`http://localhost:1337/users/${idS}`, {
+      bookmarks: bookmarksData,
+    });
+  };
+
   return (
     <>
       {variantPost == 3 ? (
-        <PostsThree start={start} end={end} posts={posts} />
+        <PostsThree
+          start={start}
+          end={end}
+          posts={posts}
+          savedBokmark={savedBokmark}
+          
+        />
       ) : (
         ''
       )}
       {variantPost == 4 ? (
-        <PostsThree start={start} end={end} posts={posts} four={four} />
+        <PostsThree
+          start={start}
+          end={end}
+          posts={posts}
+          four={four}
+          savedBokmark={savedBokmark}
+        />
       ) : (
         ''
       )}
       {variantPost == 2 ? (
-        <PostsTwo start={start} end={end} posts={posts} />
+        <PostsTwo
+          savedBokmark={savedBokmark}
+          start={start}
+          end={end}
+          posts={posts}
+         
+        />
       ) : (
         ''
       )}{' '}

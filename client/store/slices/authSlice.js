@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Magic } from 'magic-sdk';
+import { removeAllBookmarks } from './bookmarkSlice';
 
 
 
@@ -22,6 +22,8 @@ export const authSlice = createSlice({
       state.user = null;
       state.authStatus = false;
       state.magic.user.logout();
+      state.magic = null
+     
     },
     getMagic: (state, action) => {
       state.magic = action.payload;

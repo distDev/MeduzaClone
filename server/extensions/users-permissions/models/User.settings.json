@@ -59,8 +59,8 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "posts": {
-      "collection": "post"
+    "bookmarks": {
+      "type": "json"
     }
   }
 }
