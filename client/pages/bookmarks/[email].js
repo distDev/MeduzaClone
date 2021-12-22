@@ -5,12 +5,18 @@ import { useSelector } from 'react-redux';
 const bookmarks = ({ posts }) => {
   const user = useSelector((state) => state.login.user);
   const bookmarksData = useSelector((state) => state.bookmark.bookmarksData);
- 
-  console.log(prover);
+  
+  const filtered = posts.filter(({ id }) =>
+    bookmarksData.some((exclude) => exclude.id === id)
+  );
+  console.log(filtered);
+
   return (
     <div className='container main chronology-container'>
       <h1>Закладки</h1>
-      <div className='chronology-grid'></div>
+      <div className='chronology-grid'>
+        <ChronologyPost posts={filtered}/>
+      </div>
     </div>
   );
 };
