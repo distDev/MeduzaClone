@@ -5,12 +5,17 @@ import Checkbox from '@mui/material/Checkbox';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
 
-const PostsTwo = ({ posts, end, start, savedBokmark }) => {
+const PostsTwo = ({
+  posts,
+  end,
+  start,
+  savedBokmark,
+  deleteBokmark,
+}) => {
   const user = useSelector((state) => state.login.user);
   const bookmarksData = useSelector((state) => state.bookmark.bookmarksData);
-
+  const setChecked = (idS) => Boolean(bookmarksData.find((e) => e.id === idS));
   return (
     <>
       {posts
@@ -25,14 +30,12 @@ const PostsTwo = ({ posts, end, start, savedBokmark }) => {
                 <Checkbox
                   icon={<BookmarkBorderIcon />}
                   checkedIcon={<BookmarkIcon />}
-                  checked={
-                    bookmarksData
-                      ? bookmarksData.find((e) => e.id === id)
-                        ? true
-                        : false
-                      : false
+                  checked={setChecked(id)}
+                  onClick={() =>
+                    setChecked(id)
+                      ? deleteBokmark({ id })
+                      : savedBokmark({ id })
                   }
-                  onClick={() => savedBokmark({ id })}
                 />
               ) : (
                 ''

@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 export default function ProfileMenu({ halndleQuit }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const userData = useSelector((state) => state.login.user);
+  const user = useSelector((state) => state.login.user);
   const router = useRouter();
 
   const handleClick = (event) => {
@@ -51,9 +51,9 @@ export default function ProfileMenu({ halndleQuit }) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <h4>staver.edc@gmail.com</h4>
+        <h4>{user[0].email}</h4>
         <MenuItem onClick={() => router.push('/profile')}>Профиль</MenuItem>
-        <MenuItem onClick={() => router.push(`/bookmarks/${userData.email}`)}>
+        <MenuItem onClick={() => router.push(`/bookmarks/${user[0].email}`)}>
           Закладки
         </MenuItem>
         <MenuItem onClick={halndleQuit}>Выйти</MenuItem>

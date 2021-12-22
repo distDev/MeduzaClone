@@ -1,8 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   bookmarksData: [],
 };
+
 
 export const bookmarkSlice = createSlice({
   name: 'bookmark',
@@ -14,17 +16,25 @@ export const bookmarkSlice = createSlice({
     addBookmarks: (state, action) => {
       state.bookmarksData.push({
         id: action.payload.id,
-       
       });
     },
+    removeBookmarks: (state, action) => {
+      state.bookmarksData = state.bookmarksData.filter(
+        (e) => e.id !== action.payload.id
+      );
+    },
     removeAllBookmarks: (state, action) => {
-     state.bookmarksData = []
+      state.bookmarksData = [];
     },
   },
+
 });
 
-// Action creators are generated for each case reducer function
-export const { removeAllBookmarks, addBookmarks, saveBookmarks } =
-  bookmarkSlice.actions;
+export const {
+  removeAllBookmarks,
+  removeBookmarks,
+  addBookmarks,
+  saveBookmarks,
+} = bookmarkSlice.actions;
 
 export default bookmarkSlice.reducer;

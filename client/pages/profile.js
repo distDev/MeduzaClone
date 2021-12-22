@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../store/slices/authSlice';
 
 const profile = () => {
-  const userData = useSelector((state) => state.login.user);
+ const user = useSelector((state) => state.login.user);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -12,13 +12,13 @@ const profile = () => {
     router.push('/');
   }
 
-  console.log(userData);
+  console.log(user);
 
   return (
     <div className='container main profile-wrap'>
-      {userData ? (
+      {user ? (
         <div className='profile-container'>
-          <h1>{userData.email}</h1>
+          <h1>{user[0].email}</h1>
           <div className='profile-btns'>
             <button className='profile-ext' onClick={handleQuit}>
               ВЫЙТИ

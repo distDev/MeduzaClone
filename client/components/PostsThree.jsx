@@ -8,10 +8,18 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useSelector } from 'react-redux';
 
 
-const PostsThree = ({ posts, end, start, four, savedBokmark }) => {
-
+const PostsThree = ({
+  posts,
+  end,
+  start,
+  four,
+  savedBokmark,
+  deleteBokmark,
+}) => {
+ 
   const user = useSelector((state) => state.login.user);
   const bookmarksData = useSelector((state) => state.bookmark.bookmarksData);
+  const setChecked = (idS) => Boolean(bookmarksData.find((e) => e.id === idS));
 
   return (
     <>
@@ -45,14 +53,12 @@ const PostsThree = ({ posts, end, start, four, savedBokmark }) => {
                 <Checkbox
                   icon={<BookmarkBorderIcon />}
                   checkedIcon={<BookmarkIcon />}
-                  checked={
-                    bookmarksData
-                      ? bookmarksData.find((e) => e.id === id)
-                        ? true
-                        : false
-                      : false
+                  checked={setChecked(id)}
+                  onClick={() =>
+                    setChecked(id)
+                      ? deleteBokmark({ id })
+                      : savedBokmark({ id })
                   }
-                  onClick={() => savedBokmark({ id })}
                 />
               ) : (
                 ''

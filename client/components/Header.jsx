@@ -9,7 +9,10 @@ import { Magic } from 'magic-sdk';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMagic, loginUser, logoutUser } from '../store/slices/authSlice';
 import ProfileMenu from './ProfileMenu';
-import { removeAllBookmarks, saveBookmarks } from '../store/slices/bookmarkSlice';
+import {
+  removeAllBookmarks,
+  saveBookmarks,
+} from '../store/slices/bookmarkSlice';
 import axios from 'axios';
 
 const Header = () => {
@@ -19,6 +22,7 @@ const Header = () => {
   const userData = useSelector((state) => state.login.authStatus);
   const mag = useSelector((state) => state.login.magic);
   const user = useSelector((state) => state.login.user);
+  const bookmarksData = useSelector((state) => state.bookmark.bookmarksData);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -31,6 +35,7 @@ const Header = () => {
     dispatch(logoutUser());
     dispatch(removeAllBookmarks());
   };
+
 
   // получение токена и проверка на авторизацию
   useEffect(() => {
@@ -59,7 +64,7 @@ const Header = () => {
           const data = res.data;
           dispatch(loginUser(data));
           const token = await getToken();
-          console.log(token)
+          console.log(token);
         }
       } catch (err) {
         console.log(err);
@@ -69,7 +74,7 @@ const Header = () => {
     checkUserLoggedIn();
   }, []);
 
-  // вызов magic конструктора для передачи в окно регистрации
+  // вызов magic конструктора
   useEffect(() => {
     const magic = new Magic('pk_live_80C88C06AA220751', { locale: 'ru' });
 
