@@ -13,7 +13,7 @@ const ChronologyPost = ({ posts, end, start }) => {
           <div className='chronology-post-content'>
             <div className='chronology-post-content-text'>
               <span>{e.categories[0].ruName}</span>
-              <h3>{e.title}</h3>
+              <h3>{e.title.slice(0, 120)}</h3>
             </div>
             <p>{moment(e.published_at).startOf('hour').fromNow()}</p>
           </div>

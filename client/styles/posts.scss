@@ -128,25 +128,26 @@
   background: rgb(255, 255, 255);
   border-radius: 10px;
   overflow: hidden;
-  min-height: 200px;
+  height: 200px;
   position: relative;
   * {
     margin: 0px;
   }
 
   .chronology-post-img {
-    width: 375px;
+    width: 30%;
     height: 100%;
     overflow: hidden;
 
     img {
       width: 100%;
       height: 100%;
-      background-size: cover;
+      object-fit: cover;
     }
   }
 
   .chronology-post-content {
+    width: 65%;
     padding: 15px;
     display: flex;
     flex-direction: column;
